@@ -4,10 +4,17 @@ class SearchBar extends React.Component {
     
     state = { term: ''};
 
+    // will prevent page being refreshed on enter key down (default behaviour)
+    onFormSubmit(event) {
+        event.preventDefault();
+
+        console.log(this.state.term);
+    }
+
     render() {
         return (
             <div className="ui segment">
-                <form className="ui form">
+                <form onSubmit={this.onFormSubmit} className="ui form">
                     <div className="field">
                         <label>Image Search</label>
                         <input 
@@ -25,3 +32,4 @@ class SearchBar extends React.Component {
 export default SearchBar;
 
 //onChange - Special React keyword used to handle events
+// Render method is called everytime value is update or key typed in
