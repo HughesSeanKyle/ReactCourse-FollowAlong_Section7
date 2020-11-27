@@ -5,11 +5,11 @@ class SearchBar extends React.Component {
     state = { term: ''};
 
     // will prevent page being refreshed on enter key down (default behaviour)
-    onFormSubmit = (event) => {
+    onFormSubmit = event => {
         event.preventDefault();
 
-        console.log(this.state.term); //3
-    }
+        this.props.onSubmit(this.state.term);
+    };
 
     render() {
         return (
