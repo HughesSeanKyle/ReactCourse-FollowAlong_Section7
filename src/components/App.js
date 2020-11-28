@@ -4,6 +4,7 @@ import SearchBar from './SearchBar';
 import { AuthKey } from '../config/keys';
 
 class App extends React.Component {
+    state = { images: [] };
 
     //2
     onSearchSubmit = async term => {
@@ -14,13 +15,15 @@ class App extends React.Component {
             }
         });
 
-        console.log(response.data.results);
+        console.log(this);
+        this.setState({ images: response.data.results });
     }
 
     render() {
         return (
             <div className="ui container" style={{marginTop: '10px'}}>
                 <SearchBar onSubmit={this.onSearchSubmit} />
+                Found: {this.state.images.length} images
             </div> //1
         );
     }
@@ -59,4 +62,17 @@ export default App;
     }
 
     async await is a much better alternative to above. 
+
+    =======
+    onSearchSubmit = async term => {
+        const response = await axios.get('https://api.unsplash.com/search/photos', { //4
+            params: { query: term },
+            headers: {
+                Authorization: AuthKey
+            }
+        });
+
+        console.log(this);
+        this.setState({ images: response.data.results });
+    }
 */
