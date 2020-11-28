@@ -6,13 +6,15 @@ import { AuthKey } from '../config/keys';
 class App extends React.Component {
 
     //2
-    onSearchSubmit = term => {
-        axios.get('https://api.unsplash.com/search/photos', { //4
+    onSearchSubmit = async term => {
+        const response = await axios.get('https://api.unsplash.com/search/photos', { //4
             params: { query: term },
             headers: {
                 Authorization: AuthKey
             }
         });
+
+        console.log(response.data.results);
     }
 
     render() {
@@ -42,4 +44,19 @@ export default App;
 
             header refers to supplemental data placed at the beginning of a block of data being stored or transmitted. In data transmission, the data following the header is sometimes called the payload or body.
             [https://en.wikipedia.org/wiki/Header_(computing)#:~:text=From%20Wikipedia%2C%20the%20free%20encyclopedia,called%20the%20payload%20or%20body.]
+
+    When ever a request is made with axios it returns a promise object as the request is asynchronous in nature. Make a request => Wait for a response => Do something with response using .then()
+
+        onSearchSubmit = term => {
+        axios.get('https://api.unsplash.com/search/photos', { //4
+            params: { query: term },
+            headers: {
+                Authorization: AuthKey
+            }
+        }).then((response) => {                 <<|=============
+            console.log(response);
+        });
+    }
+
+    async await is a much better alternative to above. 
 */
