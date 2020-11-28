@@ -1,21 +1,16 @@
 import React from 'react';
-import axios from 'axios'; //3
+import unsplash from '../api/unsplash';
 import SearchBar from './SearchBar';
-import { AuthKey } from '../config/keys';
 
 class App extends React.Component {
     state = { images: [] };
 
     //2
     onSearchSubmit = async term => {
-        const response = await axios.get('https://api.unsplash.com/search/photos', { //4
-            params: { query: term },
-            headers: {
-                Authorization: AuthKey
-            }
+        const response = await unsplash.get('/search/photos', { //4
+            params: { query: term }
         });
 
-        console.log(this);
         this.setState({ images: response.data.results });
     }
 
